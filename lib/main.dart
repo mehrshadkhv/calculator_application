@@ -1,3 +1,4 @@
+import 'package:calculator_application/constants.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -10,7 +11,23 @@ class Application extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(body: Center(child: Text('Mehrshad'))),
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        body: SafeArea(
+          child: Column(
+            children: [
+              Expanded(
+                flex: 3,
+                child: Container(height: 100, color: backgroundGreyDark),
+              ),
+              Expanded(
+                flex: 7,
+                child: Container(height: 200, color: backgroundGrey),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
