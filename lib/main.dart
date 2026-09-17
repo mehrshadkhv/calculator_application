@@ -22,12 +22,76 @@ class Application extends StatelessWidget {
               ),
               Expanded(
                 flex: 7,
-                child: Container(height: 200, color: backgroundGrey),
+                child: Container(
+                  color: backgroundGrey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      getRow('ac', 'ce', '%', '/'),
+                      getRow('7', '8', '9', '*'),
+                      getRow('4', '5', '6', '-'),
+                      getRow('1', '2', '3', '+'),
+                      getRow('00', '0', '.', '='),
+                    ],
+                  ),
+                ),
               ),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Widget getRow(String text1, String text2, String text3, String text4) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        TextButton(
+          onPressed: () {},
+          child: Padding(
+            padding: const EdgeInsets.all(3),
+            child: Text(
+              text1,
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 26, color: textGrey),
+            ),
+          ),
+        ),
+        TextButton(
+          onPressed: () {},
+          child: Padding(
+            padding: const EdgeInsets.all(3),
+            child: Text(
+              text2,
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 26, color: textGrey),
+            ),
+          ),
+        ),
+        TextButton(
+          onPressed: () {},
+          child: Padding(
+            padding: const EdgeInsets.all(3),
+            child: Text(
+              text3,
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 26, color: textGrey),
+            ),
+          ),
+        ),
+        TextButton(
+          onPressed: () {},
+          child: Padding(
+            padding: const EdgeInsets.all(3),
+            child: Text(
+              text4,
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 26, color: textGrey),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
