@@ -5,9 +5,14 @@ void main() {
   runApp(Application());
 }
 
-class Application extends StatelessWidget {
+class Application extends StatefulWidget {
   const Application({super.key});
 
+  @override
+  State<Application> createState() => _ApplicationState();
+}
+
+class _ApplicationState extends State<Application> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -18,7 +23,27 @@ class Application extends StatelessWidget {
             children: [
               Expanded(
                 flex: 3,
-                child: Container(height: 100, color: backgroundGreyDark),
+                child: Container(
+                  height: 100,
+                  color: backgroundGreyDark,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          inputUser,
+                          textAlign: TextAlign.end,
+                          style: TextStyle(
+                            color: textGreen,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 28.0,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
               Expanded(
                 flex: 7,
@@ -43,51 +68,117 @@ class Application extends StatelessWidget {
     );
   }
 
+  var inputUser = '';
+  void buttonPressed(String text) {
+    setState(() {
+      inputUser = inputUser + text;
+    });
+  }
+
+  bool isOperator(String text) {
+    var list = ['ac', 'ce', '%', '/', '*', '-', '+', '='];
+
+    for (var item in list) {
+      if (item == text) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  Color getBackgroundColor(String text) {
+    if (isOperator(text)) {
+      return backgroundGreyDark;
+    } else {
+      return backgroundGrey;
+    }
+  }
+
+  Color getForegroundColor(String text) {
+    if (isOperator(text)) {
+      return textGreen;
+    } else {
+      return textGrey;
+    }
+  }
+
   Widget getRow(String text1, String text2, String text3, String text4) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         TextButton(
-          onPressed: () {},
+          style: TextButton.styleFrom(
+            shape: CircleBorder(
+              side: BorderSide(width: 0, color: Colors.transparent),
+            ),
+            backgroundColor: getBackgroundColor(text1),
+          ),
+          onPressed: () {
+            buttonPressed(text1);
+          },
           child: Padding(
             padding: const EdgeInsets.all(3),
             child: Text(
               text1,
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 26, color: textGrey),
+              style: TextStyle(fontSize: 26, color: getForegroundColor(text1)),
             ),
           ),
         ),
         TextButton(
-          onPressed: () {},
+          style: TextButton.styleFrom(
+            shape: CircleBorder(
+              side: BorderSide(width: 0, color: Colors.transparent),
+            ),
+            backgroundColor: getBackgroundColor(text2),
+          ),
+          onPressed: () {
+            buttonPressed(text2);
+          },
           child: Padding(
             padding: const EdgeInsets.all(3),
             child: Text(
               text2,
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 26, color: textGrey),
+              style: TextStyle(fontSize: 26, color: getForegroundColor(text2)),
             ),
           ),
         ),
         TextButton(
-          onPressed: () {},
+          style: TextButton.styleFrom(
+            shape: CircleBorder(
+              side: BorderSide(width: 0, color: Colors.transparent),
+            ),
+            backgroundColor: getBackgroundColor(text3),
+          ),
+          onPressed: () {
+            buttonPressed(text3);
+          },
           child: Padding(
             padding: const EdgeInsets.all(3),
             child: Text(
               text3,
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 26, color: textGrey),
+              style: TextStyle(fontSize: 26, color: getForegroundColor(text3)),
             ),
           ),
         ),
         TextButton(
-          onPressed: () {},
+          style: TextButton.styleFrom(
+            shape: CircleBorder(
+              side: BorderSide(width: 0, color: Colors.transparent),
+            ),
+            backgroundColor: getBackgroundColor(text4),
+          ),
+          onPressed: () {
+            buttonPressed(text4);
+          },
           child: Padding(
             padding: const EdgeInsets.all(3),
             child: Text(
               text4,
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 26, color: textGrey),
+              style: TextStyle(fontSize: 26, color: getForegroundColor(text4)),
             ),
           ),
         ),
