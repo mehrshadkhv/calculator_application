@@ -1,5 +1,6 @@
 import 'package:calculator_application/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:math_expressions/math_expressions.dart';
 
 void main() {
   runApp(Application());
@@ -13,6 +14,8 @@ class Application extends StatefulWidget {
 }
 
 class _ApplicationState extends State<Application> {
+  var inputUser = '';
+  var result = '';
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -39,6 +42,14 @@ class _ApplicationState extends State<Application> {
                             fontWeight: FontWeight.bold,
                             fontSize: 28.0,
                           ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(8),
+                        child: Text(
+                          result,
+                          textAlign: TextAlign.end,
+                          style: TextStyle(color: textGrey, fontSize: 62.0),
                         ),
                       ),
                     ],
@@ -68,7 +79,6 @@ class _ApplicationState extends State<Application> {
     );
   }
 
-  var inputUser = '';
   void buttonPressed(String text) {
     setState(() {
       inputUser = inputUser + text;
@@ -114,7 +124,14 @@ class _ApplicationState extends State<Application> {
             backgroundColor: getBackgroundColor(text1),
           ),
           onPressed: () {
-            buttonPressed(text1);
+            if (text1 == 'ac') {
+              setState(() {
+                inputUser = '';
+                result = '';
+              });
+            } else {
+              buttonPressed(text1);
+            }
           },
           child: Padding(
             padding: const EdgeInsets.all(3),
@@ -133,7 +150,15 @@ class _ApplicationState extends State<Application> {
             backgroundColor: getBackgroundColor(text2),
           ),
           onPressed: () {
-            buttonPressed(text2);
+            if (text2 == 'ce') {
+              setState(() {
+                if (inputUser.isNotEmpty) {
+                  inputUser = inputUser.substring(0, inputUser.length - 1);
+                }
+              });
+            } else {
+              buttonPressed(text2);
+            }
           },
           child: Padding(
             padding: const EdgeInsets.all(3),
@@ -171,7 +196,19 @@ class _ApplicationState extends State<Application> {
             backgroundColor: getBackgroundColor(text4),
           ),
           onPressed: () {
-            buttonPressed(text4);
+            if (text4 == '=') {
+              ExpressionParser parser = GrammarParser();
+              Expression expression = parser.parse(inputUser);
+
+              ContextModel contextModel = ContextModel();
+              num eval = RealEvaluator(contextModel).evaluate(expression);
+
+              setState(() {
+                result = eval.toString();
+              });
+            } else {
+              buttonPressed(text4);
+            }
           },
           child: Padding(
             padding: const EdgeInsets.all(3),
