@@ -1,0 +1,12 @@
+# Flutter platform scaffolding is not the app's primary source code.
+# Keep these rules even for platforms that are not present in this checkout.
+/android/** linguist-vendored=true
+/ios/** linguist-vendored=true
+/web/** linguist-vendored=true
+/linux/** linguist-vendored=true
+/macos/** linguist-vendored=true
+/windows/** linguist-vendored=true
+
+# Generated Dart files should not affect language statistics.
+*.g.dart linguist-generated=true
+*.freezed.dart linguist-generated=true
